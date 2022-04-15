@@ -24,7 +24,7 @@ def openvd(st, source):
 	while st:
 		ans = str(input('Do you want to watch video? (yes or no): --> '))
 		if ans == 'yes':
-			webbrowser.open(source['link'], new=0, autoraise=True)
+			webbrowser.open(source.get('link'), new=0, autoraise=True)
 			st = False
 		else:
 			print('Okay, video is closed')
@@ -77,11 +77,15 @@ def search_keys():
 				count = count + 1
 		m = m + 1	
 
-	cn = 0
+	cn = 1
 	while cn < len(ar_kw):
 		print(f'{cn}', ar_kw[cn])
 		cn = cn + 1
-	
+	num_video = int(input('Enter the number of these videos: '))
+	print(ar_kw[num_video])
+	openvd(True, ar_kw[num_video])
+
+
 def search():
 	p = print('Search by authors\n')
 	u = str(input('Name of author: '))
