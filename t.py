@@ -19,8 +19,18 @@ with open('data.csv') as File:
 		ath.append(g[1])
 		i = i + 1
 
+def openvd(st, source):
+	st = True
+	while st:
+		ans = str(input('Do you want to watch video? (yes or no): --> '))
+		if ans == 'yes':
+			webbrowser.open(source['link'], new=0, autoraise=True)
+			st = False
+		else:
+			print('Okay, video is closed')
+			st = False
 
-def usage():
+def usage(b):
 	global f, q, items, t
 
 	j = 1
@@ -32,25 +42,48 @@ def usage():
 		f.append(dict(zip(items, x[j])))
 		j = j + 1
 	
-	while b:
+	while b: # use it only for data base
 		p = int(input('Enter the number of videos from 0 to 5440: '))
 		if p > 5440:
 			print(f[0])
 			break
 			
 		print(f[p])
-		q = f[p]
-			
+		
+		q = f[p]		
 		print(q['link'])
-		ans = str(input('Do you want to watch video? (yes or no): --> '))
-		if ans == 'yes':
-			webbrowser.open(q['link'], new=0, autoraise=True)
-			break
-		else:
-			print('Okay, video is closed')
-			break
+		openvd(True, q)
+		b = False
+
+
+def search_keys():
+	sk = print('Search by key words')
+	ser = str(input('Key word: '))
+
+	m = 1 # in all data
+	n = 0 # in string
+
+	ar_kw = []
+ 
+	while m < len(f):
+		obj = f[m].get('title')
+		string = obj.split()
+		count = 0
+		while count < len(string):
+			if ser == string[count]:
+				ar_kw.append(f[m])
+				count = count + 1
+			else:
+				count = count + 1
+		m = m + 1	
+
+	cn = 0
+	while cn < len(ar_kw):
+		print(f'{cn}', ar_kw[cn])
+		cn = cn + 1
+	
 def search():
-	p = print(f'Search by authors\n')
+	p = print('Search by authors\n')
 	u = str(input('Name of author: '))
 	w = 1
 	while w < len(f):
@@ -59,22 +92,22 @@ def search():
 			print('Found!')
 			res = f[w]
 			print(f[w])
-			opn = input('Do you want open this video? (yes or no): ')
-			if opn == 'yes':
-				webbrowser.open(res['link'], new=0, autoraise=True)
-			else:
-				print('Okay, video is closed')
+			openvd(True, f[w])
 			break
 		else:
 			w = w + 1	
-ask = input('How do you want search videos?\n 1)Author\n 2)Data Base\n Enter a number --> ')
+ask = input('How do you want search videos?\n 1)Author\n 2)Data Base\n 3)Key words\n Enter a number --> ')
 if ask == '1':
-	b = False
-	usage()
+
+	usage(False)
 	search()
-else:
-	b = True
-	usage()
+
+if ask == '2':
+	usage(True)
+if ask == '3':
+	usage(False)
+	search_keys()
+
 
 
 
