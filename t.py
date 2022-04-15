@@ -18,37 +18,53 @@ with open('data.csv') as File:
 		i = i + 1
 
 
-def duplicate():
-    for key,val in Counter(ath).items():
-        print(key,val)
-        if val == 2:
-        	ath_2.append([key, val])
-        else:
-        	continue
+# TO DO
+def categories():
+	pass
+
+# def duplicate():
+#     for key,val in Counter(ath).items():
+#         print(key,val)
+#         if val == 2:
+#         	ath_2.append([key, val])
+#         else:
+#         	continue
 
 
-#p = int(input('Enter the number of videos from 0 to 5440: '))
+p = int(input('Enter the number of videos from 0 to 5440: '))
+
+
 
 
 def usage(index):
 	global f, q
+
 	j = 1
 	prices = x[0]
 	t = x[j]
 	f = []
+	f.insert(0, 'This is too much number')
 	while j < len(x):
 		f.append(dict(zip(prices, x[j])))
 		j = j + 1
-	print(f[index])
-	q = f[index]
-	print(q['link'])
-	ans = str(input('Do you want to watch video? (yes or no): --> '))
-	if ans == 'yes':
-		webbrowser.open(q['link'], new=0, autoraise=True)
-	else:
-		print('Okay, video is closed')
-usage(12)
-print(q.values())
+	while True:
+
+		if p > 5440:
+			print(f[0])
+			break
+		
+		print(f[index])
+		q = f[index]
+		print(q['link'])
+		ans = str(input('Do you want to watch video? (yes or no): --> '))
+		if ans == 'yes':
+			webbrowser.open(q['link'], new=0, autoraise=True)
+			break
+		else:
+			print('Okay, video is closed')
+			break
+usage(p)
+
 
 t = x[0]
 def search():
